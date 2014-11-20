@@ -17,7 +17,6 @@ class ViewController: UIViewController {
         sampleCall.getJsonData { (obj, error) -> Void in
             print(obj)
         }
-
     }
 
     override func didReceiveMemoryWarning() {

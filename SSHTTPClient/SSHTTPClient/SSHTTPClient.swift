@@ -59,7 +59,7 @@ class SSHTTPClient : NSObject {
         task.resume()
     }
     
-    func finishRequest() {
+    func finishRequest()->Void{
         var session = NSURLSession.sharedSession()
 		session.invalidateAndCancel()
     }
