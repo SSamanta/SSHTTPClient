@@ -29,11 +29,13 @@ class SSHTTPClient : NSObject {
         var task = session.dataTaskWithRequest(request, completionHandler: { (data, response , error) -> Void in
             if (error == nil) {
                 var jsonError : NSError?
-                var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &jsonError) as? NSDictionary
-                if (jsonError == nil) {
-                    httpResponseHandler(obj: json as AnyObject?,error: nil)
+                var json : AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &jsonError)
+                if let object = json as? Array <AnyObject> {
+                    httpResponseHandler(obj: object ,error: nil)
+                }else if let object = json as? Dictionary <String, AnyObject> {
+                    httpResponseHandler(obj: object ,error: nil)
                 }else {
-                    httpResponseHandler(obj: nil,error: jsonError)
+                    httpResponseHandler(obj: nil,error:jsonError)
                 }
             }else {
                 httpResponseHandler(obj: nil,error: error)
