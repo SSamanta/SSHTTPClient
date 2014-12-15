@@ -13,7 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Sample service call
-        var sampleCall : SSHTTPClient  = SSHTTPClient(url: "http://itunes.apple.com/us/rss/topfreeapplications/limit=100/json", method: "GET", httpBody: "", headerFieldsAndValues: ["":""])
+		let urlString : NSString = "http://itunes.apple.com/us/rss/topfreeapplications/limit=100/json"
+        let sampleCall : SSHTTPClient  = SSHTTPClient(url: urlString , method: "GET", httpBody: "", headerFieldsAndValues: ["":""])
         sampleCall.getJsonData { (obj, error) -> Void in
             print(obj)
         }
