@@ -6,4 +6,5 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/SSamanta/'
   s.authors  = { 'Susim' => 'susim.samanta@me.com' }
   s.source   = { :git => "https://github.com/SSamanta/SSHTTPClient.git", :branch => "master", :tag => "v1.0.0"  }
+  spec.source_files = 'SSHTTPClient.{swift}'
 end
