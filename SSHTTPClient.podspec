@@ -5,6 +5,6 @@ Pod::Spec.new do |s|
   s.summary  = 'Sample network call.'
   s.homepage = 'https://github.com/SSamanta/'
   s.authors  = { 'Susim' => 'susim.samanta@me.com' }
-  s.source   = { :git => "https://github.com/SSamanta/SSHTTPClient.git", :branch => "master", :tag => "v1.0.0"  }
+  s.source   = { :git => "https://github.com/SSamanta/SSHTTPClient.git", :branch => "master", :tag => "v1.0.1"  }
   s.source_files = 'SSHTTPClient/SSHTTPClient/SSHTTPClient.{swift}'
 end
