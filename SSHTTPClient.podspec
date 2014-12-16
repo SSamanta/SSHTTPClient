@@ -1,3 +1,4 @@
+source 'https://github.com/CocoaPods/Specs.git'
 Pod::Spec.new do |spec|
 spec.name         = 'SSHTTPClient'
 spec.version      = 'master'
