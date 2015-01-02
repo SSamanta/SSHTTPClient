@@ -8,7 +8,7 @@
 
 import Foundation
 typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
-class SSHTTPClient : NSObject {
+@objc class SSHTTPClient : NSObject {
     var httpMethod,urlStr,httpBody: NSString?
     var headerFieldsAndValues : NSDictionary?
     init(url:NSString, method:NSString, httpBody: NSString, headerFieldsAndValues: NSDictionary  ) {
