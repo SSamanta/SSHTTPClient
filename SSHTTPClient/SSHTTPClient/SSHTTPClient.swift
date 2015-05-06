@@ -18,10 +18,10 @@ typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
         self.headerFieldsAndValues = headerFieldsAndValues
     }
     func getJsonData(httpResponseHandler : SSHTTPResponseHandler) {
-        var request = NSMutableURLRequest(URL: NSURL(string:self.urlStr!)!)
-        request.HTTPMethod =  self.httpMethod!
+        var request = NSMutableURLRequest(URL: NSURL(string:self.urlStr! as String)!)
+        request.HTTPMethod =  self.httpMethod! as String
         self.headerFieldsAndValues?.enumerateKeysAndObjectsUsingBlock({ (key, value, stop) -> Void in
-            request.setValue(value as NSString, forHTTPHeaderField: key as NSString)
+            request.setValue(value as! NSString as String, forHTTPHeaderField: key as! NSString as String)
         })
         request.HTTPBody = self.httpBody?.dataUsingEncoding(NSUTF8StringEncoding)
         
@@ -44,10 +44,10 @@ typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
         task.resume()
     }
     func getResponseData(urlString :NSString?,httpResponseHandler : SSHTTPResponseHandler) {
-        var request = NSMutableURLRequest(URL: NSURL(string:self.urlStr!)!)
-        request.HTTPMethod =  self.httpMethod!
+        var request = NSMutableURLRequest(URL: NSURL(string:self.urlStr! as String)!)
+        request.HTTPMethod =  self.httpMethod! as String
         self.headerFieldsAndValues?.enumerateKeysAndObjectsUsingBlock({ (key, value, stop) -> Void in
-            request.setValue(value as NSString, forHTTPHeaderField: key as NSString)
+            request.setValue(value as? String, forHTTPHeaderField: key as! NSString as String)
         })
         request.HTTPBody = self.httpBody?.dataUsingEncoding(NSUTF8StringEncoding)
         var session = NSURLSession.sharedSession()
