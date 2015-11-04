@@ -16,7 +16,7 @@ class ViewController: UIViewController {
 		let urlString : NSString = "http://itunes.apple.com/us/rss/topfreeapplications/limit=100/json"
         let sampleCall : SSHTTPClient  = SSHTTPClient(url: urlString , method: "GET", httpBody: "", headerFieldsAndValues: ["":""])
         sampleCall.getJsonData { (obj, error) -> Void in
-            print(obj)
+            print(obj, terminator: "")
         }
     }
 

@@ -18,18 +18,26 @@ typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
         self.headerFieldsAndValues = headerFieldsAndValues
     }
     func getJsonData(httpResponseHandler : SSHTTPResponseHandler) {
-        var request = NSMutableURLRequest(URL: NSURL(string:self.urlStr! as String)!)
+        let request = NSMutableURLRequest(URL: NSURL(string:self.urlStr! as String)!)
         request.HTTPMethod =  self.httpMethod! as String
         self.headerFieldsAndValues?.enumerateKeysAndObjectsUsingBlock({ (key, value, stop) -> Void in
             request.setValue(value as! NSString as String, forHTTPHeaderField: key as! NSString as String)
         })
         request.HTTPBody = self.httpBody?.dataUsingEncoding(NSUTF8StringEncoding)
         
-        var session = NSURLSession.sharedSession()
-        var task = session.dataTaskWithRequest(request, completionHandler: { (data, response , error) -> Void in
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data, response , error) -> Void in
             if (error == nil) {
                 var jsonError : NSError?
-                var json : AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &jsonError)
+                var json : AnyObject?
+                do {
+                    json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves)
+                } catch let error as NSError {
+                    jsonError = error
+                    json = nil
+                } catch {
+                    fatalError()
+                }
                 if let object = json as? Array <AnyObject> {
                     httpResponseHandler(obj: object ,error: nil)
                 }else if let object = json as? Dictionary <String, AnyObject> {
@@ -44,14 +52,14 @@ typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
         task.resume()
     }
     func getResponseData(urlString :NSString?,httpResponseHandler : SSHTTPResponseHandler) {
-        var request = NSMutableURLRequest(URL: NSURL(string:self.urlStr! as String)!)
+        let request = NSMutableURLRequest(URL: NSURL(string:self.urlStr! as String)!)
         request.HTTPMethod =  self.httpMethod! as String
         self.headerFieldsAndValues?.enumerateKeysAndObjectsUsingBlock({ (key, value, stop) -> Void in
             request.setValue(value as? String, forHTTPHeaderField: key as! NSString as String)
         })
         request.HTTPBody = self.httpBody?.dataUsingEncoding(NSUTF8StringEncoding)
-        var session = NSURLSession.sharedSession()
-        var task = session.dataTaskWithRequest(request, completionHandler: { (data, response , error) -> Void in
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data, response , error) -> Void in
             if (error == nil) {
                httpResponseHandler (obj: data, error: nil)
             }else {
@@ -62,7 +70,7 @@ typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
     }
     
     func finishRequest()->Void{
-        var session = NSURLSession.sharedSession()
+        let session = NSURLSession.sharedSession()
 		session.invalidateAndCancel()
     }
 
