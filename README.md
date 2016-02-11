@@ -10,7 +10,7 @@ SSHTTPClient is a lightweight resuable component using swift language and NSURLS
 
 
 ### Installation
-Add [SSHTTPClient.swift] class in your project
+Add SSHTTPClient.swift class in your project
 
 
 
