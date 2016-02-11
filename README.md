@@ -9,7 +9,7 @@ Lightweight swift **HTTPClient**.
   - Using **Swift2** 
 
 ### Available Pod :
-`pod 'SSHTTPClient', '~>1.2.1'`
+`pod 'SSHTTPClient', '~>1.2.2'`
 
 ### More Info :
 
