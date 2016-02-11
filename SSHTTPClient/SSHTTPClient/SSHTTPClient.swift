@@ -7,9 +7,9 @@
 //
 
 import Foundation
-typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
+public typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
 
-@objc class SSHTTPClient : NSObject {
+public class SSHTTPClient : NSObject {
     
     var httpMethod,urlString,httpBody: String?
     var headerFieldsAndValues : NSDictionary?
@@ -21,7 +21,7 @@ typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
         self.headerFieldsAndValues = headerFieldsAndValues
     }
     
-    func getJsonData(httpResponseHandler : SSHTTPResponseHandler) {
+    public func getJsonData(httpResponseHandler : SSHTTPResponseHandler) {
         if self.urlString != nil {
             let request = NSMutableURLRequest(URL: NSURL(string:self.urlString! as String)!)
             request.HTTPMethod =  self.httpMethod! as String
@@ -58,7 +58,7 @@ typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
             httpResponseHandler(obj: nil, error: nil)
         }
     }
-    func getResponseData(urlString :NSString?,httpResponseHandler : SSHTTPResponseHandler) {
+    public func getResponseData(urlString :NSString?,httpResponseHandler : SSHTTPResponseHandler) {
         let request = NSMutableURLRequest(URL: NSURL(string:self.urlString! as String)!)
         request.HTTPMethod =  self.httpMethod! as String
         self.headerFieldsAndValues?.enumerateKeysAndObjectsUsingBlock({ (key, value, stop) -> Void in
@@ -76,7 +76,7 @@ typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
         task.resume()
     }
     
-    func cancelRequest()->Void{
+    public func cancelRequest()->Void{
         let session = NSURLSession.sharedSession()
 		session.invalidateAndCancel()
     }
