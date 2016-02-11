@@ -14,7 +14,7 @@ public class SSHTTPClient : NSObject {
     var httpMethod,urlString,httpBody: String?
     var headerFieldsAndValues : NSDictionary?
     
-    init(url:String?, method:String?, httpBody: String?, headerFieldsAndValues: NSDictionary  ) {
+    public init(url:String?, method:String?, httpBody: String?, headerFieldsAndValues: NSDictionary  ) {
         self.urlString =  url;
         self.httpMethod = method;
         self.httpBody = httpBody;
