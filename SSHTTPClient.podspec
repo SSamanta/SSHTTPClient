@@ -1,6 +1,7 @@
 Pod::Spec.new do |s|
   s.name     = "SSHTTPClient"
   s.version  = "1.2.0"
+  s.platform = :ios, "9.0"
   s.license  = { :type => 'MIT' }
   s.summary  = 'Lightweight IOS HTTP Client.'
   s.homepage = 'https://github.com/SSamanta/'
