@@ -11,6 +11,10 @@ Lightweight swift **HTTPClient**.
 ### Available Pod :
 `pod 'SSHTTPClient'`
 
+### More Info :
+
+https://github.com/SSamanta/SSHTTPClient/wiki
+
 
 
 
