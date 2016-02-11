@@ -8,13 +8,20 @@ Lightweight swift **HTTPClient**.
   - Using **NSURLSession**
   - Using **Swift2** 
 
-### Available Pod :
+### Available Pod 
 `pod 'SSHTTPClient', '~>1.2.2'`
 
-### More Info :
+### Don't Like Pod?
+Just Download project and copy `SSHTTPClient.swift` in your project you are Done!
 
-https://github.com/SSamanta/SSHTTPClient/wiki
+## Example 
 
+        // Sample service call
+		let urlString = "http://itunes.apple.com/us/rss/topfreeapplications/limit=100/json"
+        let sampleCall : SSHTTPClient  = SSHTTPClient(url: urlString , method: "GET", httpBody: "", headerFieldsAndValues: ["":""])
+        sampleCall.getJsonData { (obj, error) -> Void in
+            print(obj, terminator: "")
+        }
 
 
 
