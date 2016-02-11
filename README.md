@@ -14,22 +14,6 @@ SSHTTPClient is a lightweight resuable component using swift language and NSURLS
 ### Installation
 Add [SSHTTPClient.swift] class in your project
 
-### Installation
 
-Sample service call
 
-```sh
- let urlString : NSString = "http://itunes.apple.com/us/rss/topfreeapplications/limit=100/json"
-```
 
-```sh
- let sampleCall : SSHTTPClient  = SSHTTPClient(url: urlString , method: "GET", httpBody: "", headerFieldsAndValues: ["":""])
- sampleCall.getJsonData { (obj, error) -> Void in
-  print(obj)
- }
-
-```
-License
-----
-
-NONE
