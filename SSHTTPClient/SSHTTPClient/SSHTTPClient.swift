@@ -11,13 +11,15 @@ public typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -
 
 public class SSHTTPClient : NSObject {
     
-    var httpMethod,urlString,httpBody: String?
+    var httpMethod,urlString,httpBody: NSString?
     var headerFieldsAndValues : NSDictionary?
     
-    public init(url:String?, method:String?, httpBody: String?, headerFieldsAndValues: NSDictionary  ) {
-        self.urlString =  url;
-        self.httpMethod = method;
-        self.httpBody = httpBody;
+    public init(url:String?, method:String?, httpBody: NSString?, headerFieldsAndValues: NSDictionary) {
+        self.urlString =  url
+        self.httpMethod = method
+        if httpBody != nil {
+            self.httpBody = httpBody!
+        }
         self.headerFieldsAndValues = headerFieldsAndValues
     }
     
