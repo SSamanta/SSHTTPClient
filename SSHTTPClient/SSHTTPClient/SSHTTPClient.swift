@@ -14,15 +14,19 @@ public class SSHTTPClient : NSObject {
     var httpMethod,urlString,httpBody: NSString?
     var headerFieldsAndValues : NSDictionary?
     
-    public init(url:String?, method:String?, httpBody: NSString?, headerFieldsAndValues: NSDictionary) {
+    //Initializer Method with url string , method, body , header field and values
+    public init(url:String?, method:String?, httpBody: NSString?, headerFieldsAndValues: NSDictionary?) {
         self.urlString =  url
         self.httpMethod = method
         if httpBody != nil {
             self.httpBody = httpBody!
         }
-        self.headerFieldsAndValues = headerFieldsAndValues
+        if headerFieldsAndValues != nil {
+            self.headerFieldsAndValues = headerFieldsAndValues!
+        }
+        
     }
-    
+    //Get formatted JSON
     public func getJsonData(httpResponseHandler : SSHTTPResponseHandler) {
         if self.urlString != nil {
             let request = NSMutableURLRequest(URL: NSURL(string:self.urlString! as String)!)
@@ -60,7 +64,8 @@ public class SSHTTPClient : NSObject {
             httpResponseHandler(obj: nil, error: nil)
         }
     }
-    public func getResponseData(urlString :NSString?,httpResponseHandler : SSHTTPResponseHandler) {
+    //Get Response in Data format
+    public func getResponseData(httpResponseHandler : SSHTTPResponseHandler) {
         let request = NSMutableURLRequest(URL: NSURL(string:self.urlString! as String)!)
         request.HTTPMethod =  self.httpMethod! as String
         self.headerFieldsAndValues?.enumerateKeysAndObjectsUsingBlock({ (key, value, stop) -> Void in
@@ -78,6 +83,7 @@ public class SSHTTPClient : NSObject {
         task.resume()
     }
     
+    //Cancel Request
     public func cancelRequest()->Void{
         let session = NSURLSession.sharedSession()
 		session.invalidateAndCancel()

@@ -14,9 +14,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Sample service call
 		let urlString = "http://itunes.apple.com/us/rss/topfreeapplications/limit=100/json"
-        let sampleCall : SSHTTPClient  = SSHTTPClient(url: urlString , method: "GET", httpBody: "", headerFieldsAndValues: ["":""])
+        let sampleCall : SSHTTPClient  = SSHTTPClient(url: urlString , method: "GET", httpBody: nil, headerFieldsAndValues: nil)
         sampleCall.getJsonData { (obj, error) -> Void in
-            print(obj, terminator: "")
+            if error != nil {
+                print(error)
+            }else {
+                print(obj)
+            }
         }
     }
 
