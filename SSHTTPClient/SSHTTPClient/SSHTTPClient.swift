@@ -27,21 +27,21 @@ public class SSHTTPClient : NSObject {
         
     }
     //Get formatted JSON
-    public func getJsonData(httpResponseHandler : SSHTTPResponseHandler) {
+    public func getJsonData(_ httpResponseHandler : SSHTTPResponseHandler) {
         if self.urlString != nil {
-            let request = NSMutableURLRequest(URL: NSURL(string:self.urlString! as String)!)
-            request.HTTPMethod =  self.httpMethod! as String
-            self.headerFieldsAndValues?.enumerateKeysAndObjectsUsingBlock({ (key, value, stop) -> Void in
+            var request = URLRequest(url: URL(string:self.urlString! as String)!)
+            request.httpMethod =  self.httpMethod! as String
+            self.headerFieldsAndValues?.enumerateKeysAndObjects({ (key, value, stop) -> Void in
                 request.setValue(value as! NSString as String, forHTTPHeaderField: key as! NSString as String)
             })
-            request.HTTPBody = self.httpBody?.dataUsingEncoding(NSUTF8StringEncoding)
-            let session = NSURLSession.sharedSession()
-            let task = session.dataTaskWithRequest(request, completionHandler: { (data, response , error) -> Void in
+            request.httpBody = self.httpBody?.data(using: String.Encoding.utf8.rawValue)
+            let session = URLSession.shared
+            let task = session.dataTask(with: request, completionHandler: { (data, response , error) -> Void in
                 if (error == nil) {
                     var jsonError : NSError?
                     var json : AnyObject?
                     do {
-                        json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves)
+                        json = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves)
                     } catch let error as NSError {
                         jsonError = error
                         json = nil
@@ -65,15 +65,15 @@ public class SSHTTPClient : NSObject {
         }
     }
     //Get Response in Data format
-    public func getResponseData(httpResponseHandler : SSHTTPResponseHandler) {
-        let request = NSMutableURLRequest(URL: NSURL(string:self.urlString! as String)!)
-        request.HTTPMethod =  self.httpMethod! as String
-        self.headerFieldsAndValues?.enumerateKeysAndObjectsUsingBlock({ (key, value, stop) -> Void in
+    public func getResponseData(_ httpResponseHandler : SSHTTPResponseHandler) {
+        var request = URLRequest(url: URL(string:self.urlString! as String)!)
+        request.httpMethod =  self.httpMethod! as String
+        self.headerFieldsAndValues?.enumerateKeysAndObjects({ (key, value, stop) -> Void in
             request.setValue(value as? String, forHTTPHeaderField: key as! NSString as String)
         })
-        request.HTTPBody = self.httpBody?.dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data, response , error) -> Void in
+        request.httpBody = self.httpBody?.data(using: String.Encoding.utf8.rawValue)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { (data, response , error) -> Void in
             if (error == nil) {
                httpResponseHandler (obj: data, error: nil)
             }else {
@@ -85,7 +85,7 @@ public class SSHTTPClient : NSObject {
     
     //Cancel Request
     public func cancelRequest()->Void{
-        let session = NSURLSession.sharedSession()
+        let session = URLSession.shared
 		session.invalidateAndCancel()
     }
 
