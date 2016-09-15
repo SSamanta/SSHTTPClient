@@ -7,17 +7,17 @@
 //
 
 import Foundation
-public typealias SSHTTPResponseHandler = (obj : AnyObject? , error : NSError?) -> Void
+public typealias SSHTTPResponseHandler = (_ obj : AnyObject? , _ error : NSError?) -> Void
 
-public class SSHTTPClient : NSObject {
+open class SSHTTPClient : NSObject {
     
     var httpMethod,urlString,httpBody: NSString?
     var headerFieldsAndValues : NSDictionary?
     
     //Initializer Method with url string , method, body , header field and values
     public init(url:String?, method:String?, httpBody: NSString?, headerFieldsAndValues: NSDictionary?) {
-        self.urlString =  url
-        self.httpMethod = method
+        self.urlString =  url as NSString?
+        self.httpMethod = method as NSString?
         if httpBody != nil {
             self.httpBody = httpBody!
         }
@@ -27,7 +27,7 @@ public class SSHTTPClient : NSObject {
         
     }
     //Get formatted JSON
-    public func getJsonData(_ httpResponseHandler : SSHTTPResponseHandler) {
+    open func getJsonData(_ httpResponseHandler : @escaping SSHTTPResponseHandler) {
         if self.urlString != nil {
             var request = URLRequest(url: URL(string:self.urlString! as String)!)
             request.httpMethod =  self.httpMethod! as String
@@ -39,7 +39,7 @@ public class SSHTTPClient : NSObject {
             let task = session.dataTask(with: request, completionHandler: { (data, response , error) -> Void in
                 if (error == nil) {
                     var jsonError : NSError?
-                    var json : AnyObject?
+                    var json : Any?
                     do {
                         json = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves)
                     } catch let error as NSError {
@@ -49,23 +49,23 @@ public class SSHTTPClient : NSObject {
                         fatalError()
                     }
                     if let object = json as? Array <AnyObject> {
-                        httpResponseHandler(obj: object ,error: nil)
+                        httpResponseHandler(object as AnyObject? ,nil)
                     }else if let object = json as? Dictionary <String, AnyObject> {
-                        httpResponseHandler(obj: object ,error: nil)
+                        httpResponseHandler(object as AnyObject? ,nil)
                     }else {
-                        httpResponseHandler(obj: nil,error:jsonError)
+                        httpResponseHandler(nil,jsonError)
                     }
                 }else {
-                    httpResponseHandler(obj: nil,error: error)
+                    httpResponseHandler(nil,error as NSError?)
                 }
             })
             task.resume()
         }else {
-            httpResponseHandler(obj: nil, error: nil)
+            httpResponseHandler(nil, nil)
         }
     }
     //Get Response in Data format
-    public func getResponseData(_ httpResponseHandler : SSHTTPResponseHandler) {
+    open func getResponseData(_ httpResponseHandler : @escaping SSHTTPResponseHandler) {
         var request = URLRequest(url: URL(string:self.urlString! as String)!)
         request.httpMethod =  self.httpMethod! as String
         self.headerFieldsAndValues?.enumerateKeysAndObjects({ (key, value, stop) -> Void in
@@ -75,16 +75,16 @@ public class SSHTTPClient : NSObject {
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { (data, response , error) -> Void in
             if (error == nil) {
-               httpResponseHandler (obj: data, error: nil)
+               httpResponseHandler (data as AnyObject?, nil)
             }else {
-               httpResponseHandler(obj: nil,error: error)
+               httpResponseHandler(nil,error as NSError?)
             }
         })
         task.resume()
     }
     
     //Cancel Request
-    public func cancelRequest()->Void{
+    open func cancelRequest()->Void{
         let session = URLSession.shared
 		session.invalidateAndCancel()
     }
