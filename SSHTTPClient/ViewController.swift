@@ -21,14 +21,15 @@ class ViewController: UIViewController {
             }else {
                 print(obj)
             }
+
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
+    }}
 
-
+	
 }
 
