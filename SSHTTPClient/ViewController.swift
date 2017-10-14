@@ -17,9 +17,9 @@ class ViewController: UIViewController {
         let sampleCall : SSHTTPClient  = SSHTTPClient(url: urlString , method: "GET", httpBody: nil, headerFieldsAndValues: nil)
         sampleCall.getJsonData { (obj, error) -> Void in
             if error != nil {
-                print(error)
+                print(error ?? "no error")
             }else {
-                print(obj)
+                print(obj ?? "")
             }
         }
     }
